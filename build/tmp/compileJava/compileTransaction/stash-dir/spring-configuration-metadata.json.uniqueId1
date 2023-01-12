@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "server",
+      "type": "otel_demo_server.ConfigProperties",
+      "sourceType": "otel_demo_server.ConfigProperties"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
