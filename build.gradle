@@ -22,26 +22,32 @@ repositories {
     mavenCentral()
 }
 
+def openTelemetryVersion = '1.22.0'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    //testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    //testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 	//implementation group: 'com.google.guava', name: 'guava', version: '31.0.1-jre'
     //implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
 
-    implementation('io.opentelemetry:opentelemetry-api:1.22.0')
-    implementation('io.opentelemetry:opentelemetry-sdk:1.22.0')
-    implementation('io.opentelemetry:opentelemetry-exporter-otlp:1.22.0')
-    implementation("io.opentelemetry:opentelemetry-exporter-logging:1.22.0")
-    implementation('io.opentelemetry:opentelemetry-semconv:1.22.0-alpha')
-
+    implementation("io.opentelemetry:opentelemetry-api:${openTelemetryVersion}")
+    //implementation("io.opentelemetry:opentelemetry-sdk:${openTelemetryVersion}")
+    //implementation("io.opentelemetry:opentelemetry-exporter-otlp:${openTelemetryVersion}")
+    //implementation("io.opentelemetry:opentelemetry-exporter-logging:${openTelemetryVersion}")
+    implementation("io.opentelemetry:opentelemetry-semconv:${openTelemetryVersion}-alpha")
 }
 
 bootJar {
         enabled = true 
+}
+
+if (project.hasProperty("withAgent")) {
+    bootRun {
+        jvmArgs = ["-javaagent:dd-java-agent.jar"]
+    }
 }
 
 jar {
